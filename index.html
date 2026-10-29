@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LEITH MORE | Official Website</title>
+  <meta name="description" content="LEITH MORE 公式サイト。「性・死・愛」「剥き出しの人間」を世界観に、人が隠したがる感情や衝動をそのまま音と映像に刻むバンド。">
+  <meta property="og:title" content="LEITH MORE | Official Website">
+  <meta property="og:description" content="「性・死・愛」「剥き出しの人間」を世界観に、人が隠したがる感情や衝動をそのまま音と映像に刻むバンド。">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#060606">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230b0b0b'/%3E%3Ctext x='32' y='43' font-family='Georgia,serif' font-size='30' fill='%23f1efea' text-anchor='middle'%3ELM%3C/text%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=Shippori+Mincho+B1:wght@400;500&family=Courier+Prime:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/pattern-c.css">
+  <link rel="stylesheet" href="css/pattern-bc.css">
+</head>
+<body data-theme="dark" class="pat-c pat-bc">
+
+  <!-- ローディング：白い紙の上で細胞のマークが回転しながら小さくなり、円が開いてスクリーンへ -->
+  <div class="loader" id="loader" aria-hidden="true" data-duration="3200" data-ready="1500" data-exit="2700">
+    <div class="bc-paper"></div>
+    <div class="bc-stage">
+      <div class="bc-mark"><img src="images/cell.webp" alt=""></div>
+      <p class="bc-logo"><img class="bc-logo__main" src="images/logo.png" alt="LEITH MORE"></p>
+    </div>
+  </div>
+
+  <!-- 粒子ノイズ・カーソル・進捗 -->
+  <div class="grain" aria-hidden="true"></div>
+  <div class="cursor" id="cursor" aria-hidden="true"><span class="cursor__label"></span></div>
+  <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
+
+  <!-- ヘッダー -->
+  <header class="header" id="header">
+    <a href="#top" class="header__logo" data-scroll><img src="images/logo.png" alt="LEITH MORE"></a>
+    <button class="header__menu" id="menuBtn" aria-expanded="false" aria-controls="menu">
+      <span class="header__menu-label">Menu</span>
+      <span class="header__menu-icon"><i></i><i></i></span>
+    </button>
+  </header>
+
+  <!-- 全画面メニュー -->
+  <nav class="menu" id="menu" aria-hidden="true">
+    <div class="menu__bg"></div>
+    <ol class="menu__list">
+      <li><a href="#schedule" data-scroll><small>01</small><span>Schedule</span></a></li>
+      <li><a href="#works" data-scroll><small>02</small><span>Works</span></a></li>
+      <li><a href="#about" data-scroll><small>03</small><span>About</span></a></li>
+      <li><a href="#members" data-scroll><small>04</small><span>Members</span></a></li>
+      <li><a href="#history" data-scroll><small>05</small><span>History</span></a></li>
+      <li><a href="#contact" data-scroll><small>06</small><span>Contact</span></a></li>
+    </ol>
+    <div class="menu__foot">
+      <a class="menu__mail" data-bind-mail></a>
+      <ul class="menu__sns" data-sns-list></ul>
+    </div>
+  </nav>
+
+  <main id="top">
+
+    <!-- ===== HERO ===== -->
+    <section class="hero" data-theme="dark">
+      <div class="hero__stage">
+        <img class="hero__cell" src="images/cell.webp" alt="" aria-hidden="true">
+        <div class="hero__ring" aria-hidden="true"></div>
+        <p class="hero__phrase" id="heroPhrase"></p>
+        <div class="hero__media" id="heroMedia"></div>
+        <div class="hero__shade"></div>
+        <div class="gc-bar gc-bar--top" aria-hidden="true"><span class="gc-tc">SCENE 00 <span id="gcTc">00:00:00:00</span></span></div>
+        <div class="gc-bar gc-bar--bottom" aria-hidden="true"></div>
+        <h1 class="hero__title"><img src="images/logo.png" alt="LEITH MORE"></h1>
+        <a class="next-live" id="heroNext" hidden></a>
+      </div>
+    </section>
+
+    <!-- ===== SCHEDULE ===== -->
+    <section class="section schedule" id="schedule" data-theme="dark">
+      <header class="section-head" data-reveal>
+        <span class="section-head__no">01</span>
+        <h2 class="section-head__en">Schedule</h2>
+      </header>
+      <div class="schedule__group">
+        <h3 class="schedule__label" data-reveal>Concert</h3>
+        <ul class="rows" id="scheduleLive"></ul>
+      </div>
+    </section>
+
+    <!-- ===== WORKS ===== -->
+    <section class="section works" id="works" data-theme="dark">
+      <div class="works__head">
+        <header class="section-head" data-reveal>
+          <span class="section-head__no">02</span>
+          <h2 class="section-head__en">Works</h2>
+          <p class="section-head__ja">作品</p>
+        </header>
+        <div class="store-links" id="worksListen" data-reveal></div>
+      </div>
+      <div class="works__rows" id="worksRows"></div>
+    </section>
+
+    <!-- ===== ABOUT（プロフィール＋世界観） ===== -->
+    <section class="about" id="about" data-theme="dark">
+      <div class="section about__intro">
+        <img class="bc-about-mark" src="images/cell.webp" alt="" aria-hidden="true">
+        <header class="section-head" data-reveal>
+          <span class="section-head__no">03</span>
+          <h2 class="section-head__en">About</h2>
+        </header>
+        <p class="about__theme" id="aboutTheme"></p>
+        <div class="about__grid">
+          <div class="about__text">
+            <p class="about__lead" id="aboutLead"></p>
+            <div class="about__body" id="aboutBody"></div>
+          </div>
+          <figure class="about__art" id="aboutArt" data-reveal></figure>
+        </div>
+      </div>
+
+      <!-- 世界観：1枚の図 -->
+      <div class="section worldview">
+        <p class="worldview__label" data-reveal>世界観</p>
+        <div class="worldview__grid">
+          <figure class="wv" id="wvDiagram" data-reveal="wv"></figure>
+          <ol class="wv-notes" id="wvNotes"></ol>
+        </div>
+      </div>
+
+      <div class="section about__outro">
+        <p class="about__statement" id="aboutStatement" data-reveal></p>
+        <p class="about__genre" id="aboutGenre" data-reveal></p>
+        <dl class="about__facts" id="aboutFacts"></dl>
+      </div>
+    </section>
+
+    <!-- ===== MEMBERS ===== -->
+    <section class="section members" id="members" data-theme="dark">
+      <header class="section-head" data-reveal>
+        <span class="section-head__no">04</span>
+        <h2 class="section-head__en">Members</h2>
+      </header>
+      <div class="members__grid" id="membersGrid"></div>
+    </section>
+
+    <!-- ===== HISTORY ===== -->
+    <section class="section history" id="history" data-theme="dark">
+      <header class="section-head" data-reveal>
+        <span class="section-head__no">05</span>
+        <h2 class="section-head__en">History</h2>
+        <p class="section-head__ja">活動歴</p>
+      </header>
+      <div class="history__filter" id="historyFilter" role="tablist" data-reveal>
+        <button class="is-active" data-filter="ALL">All</button>
+        <button data-filter="RELEASE">Release</button>
+        <button data-filter="MV">Music Video</button>
+        <button data-filter="LIVE">Concert</button>
+      </div>
+      <div class="history__years" id="historyYears"></div>
+    </section>
+
+    <!-- ===== CONTACT ===== -->
+    <section class="section contact" id="contact" data-theme="dark">
+      <header class="section-head" data-reveal>
+        <span class="section-head__no">06</span>
+        <h2 class="section-head__en">Contact</h2>
+        <p class="section-head__ja">お問い合わせ</p>
+      </header>
+      <p class="contact__text" id="contactText" data-reveal></p>
+      <div class="contact__mail" data-reveal>
+        <a id="contactMail" data-cursor="Mail"></a>
+        <button class="contact__copy" id="copyMail" type="button">Copy</button>
+      </div>
+      <h3 class="contact__sns-label" data-reveal>Listen</h3>
+      <ul class="sns-rows" id="storeRows"></ul>
+      <h3 class="contact__sns-label" data-reveal>Follow</h3>
+      <ul class="sns-rows" id="snsRows"></ul>
+    </section>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer" data-theme="dark">
+    <p class="footer__big"><img src="images/logo.png" alt="LEITH MORE"></p>
+    <div class="footer__row">
+      <a href="#top" class="footer__top" data-scroll>Back to top ↑</a>
+      <ul class="footer__sns" data-sns-list></ul>
+      <span class="gc-fin">fin.</span>
+      <small class="footer__copy">© <span id="year"></span> LEITH MORE</small>
+    </div>
+  </footer>
+
+  <!-- 現在のシーン（左下） -->
+  <p class="gc-scene" id="gcScene" aria-hidden="true"></p>
+
+  <!-- 次のライブ（スクロール中に右下に出る） -->
+  <a class="next-pill" id="nextPill" hidden></a>
+
+  <!-- 歌詞オーバーレイ -->
+  <div class="lyric-modal" id="lyricModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="lyricTitle">
+    <div class="lyric-modal__bg" id="lyricBg" aria-hidden="true"></div>
+    <button class="lyric-modal__close" id="lyricClose" type="button">Close <i></i></button>
+    <div class="lyric-modal__scroll" id="lyricScroll" data-lenis-prevent>
+      <p class="lyric-modal__no" id="lyricNo"></p>
+      <h2 class="lyric-modal__title" id="lyricTitle"></h2>
+      <div class="lyric-modal__listen store-links" id="lyricListen"></div>
+      <div class="lyric-modal__text" id="lyricText"></div>
+    </div>
+  </div>
+
+  <noscript><p class="noscript">このサイトを表示するには JavaScript を有効にしてください。</p></noscript>
+
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+  <script>
+    // このページだけの表示設定：Live を Concert 表記に／配信はロゴで表示／Song の横に歌詞／About は紹介文
+    window.LM_OPTS = { labels: { live: 'Concert' }, storeIcons: true, songLyrics: true, aboutCopy: true };
+  </script>
+  <script src="content.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/pattern-c.js"></script>
+</body>
+</html>

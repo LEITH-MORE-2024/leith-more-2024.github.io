@@ -1,0 +1,202 @@
+/* ============================================================
+   PATTERN C — CINEMA
+   黒いスクリーンとレターボックス、エンドロールのような中央揃えの構成
+   css/style.css の上に重ねて読み込む
+   ============================================================ */
+
+:root {
+  --black: #060606;
+  --white: #e9e5dc;
+  --en: 'Cinzel', 'Trajan Pro', 'Times New Roman', serif;
+  --ja: 'Shippori Mincho B1', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+  --ui: 'Courier Prime', 'Courier New', monospace;
+  --muted: rgba(233, 229, 220, .5);
+  --line: rgba(233, 229, 220, .14);
+  --bar: 9vh;
+}
+body.pat-c { font-weight: 400; }
+.pat-c .grain { opacity: .1; }
+
+/* ---------- 共通：中央揃えの見出し（シーン番号＋タイトル） ---------- */
+.pat-c .section-head { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.pat-c .section-head__no { padding: 0 0 22px; font: 400 12px/1 var(--ui); letter-spacing: .34em; text-transform: uppercase; }
+.pat-c .section-head__no::before { content: 'Scene '; }
+.pat-c .section-head__no::after { display: none; }
+.pat-c .section-head__en { font: 400 clamp(40px, 6.6vw, 104px)/1 var(--en); letter-spacing: .14em; margin-right: -.14em; }
+.pat-c .section-head__ja { font-family: var(--ja); }
+.pat-c .section-head::after { content: ''; display: block; width: 1px; height: 64px; margin-top: 30px; background: linear-gradient(var(--fg), transparent); opacity: .5; }
+
+/* ---------- loader / menu / header ---------- */
+.pat-c .menu__list span { font-family: var(--en); letter-spacing: .1em; font-size: clamp(28px, 4.2vw, 62px); }
+.pat-c .menu__list small, .pat-c .menu__foot, .pat-c .header__menu { font-family: var(--ui); }
+
+/* ---------- hero：スクリーン＋レターボックス（スクロールで黒帯とアイリスが閉じる） ---------- */
+.gc-bar { position: absolute; left: 0; right: 0; z-index: 4; background: var(--black); height: 50%; transition: height 2.2s cubic-bezier(.7, 0, .2, 1) .3s; pointer-events: none; }
+.gc-bar--top { top: 0; }
+.gc-bar--bottom { bottom: 0; }
+body.is-ready .gc-bar { height: calc(var(--bar) + var(--p) * (50% - var(--bar))); }
+body.is-ready .gc-bar { transition: height 2.2s cubic-bezier(.7, 0, .2, 1) .3s; }
+body.is-ready.gc-settled .gc-bar { transition: none; }
+.gc-tc { position: absolute; left: 50%; translate: -50% 0; bottom: 12px; white-space: nowrap; font: 400 11px/1 var(--ui); letter-spacing: .24em; color: var(--muted); }
+.pat-c .header { top: 0; }
+.pat-c .hero__shade { background: radial-gradient(ellipse 80% 70% at 50% 45%, transparent 40%, rgba(0, 0, 0, .7)); }
+body.pat-c.is-ready .hero__media .ph__inner { animation: heroZoom 2.8s var(--ease) both, kenburns 40s 3s ease-in-out infinite alternate; }
+@keyframes kenburns { from { scale: 1; } to { scale: 1.08; } }
+.pat-c .hero__title, .pat-c .hero.has-next .hero__title { width: min(46vw, 720px); bottom: calc(var(--bar) + 7vh); z-index: 5; }
+.pat-c .hero__phrase { font-family: var(--ja); z-index: 6; }
+.pat-c .hero__ring { z-index: 3; }
+
+/* Next Live：字幕のように下の黒帯に */
+.pat-c .next-live {
+  left: 50%; right: auto; bottom: 0; z-index: 6; translate: -50% calc(var(--p) * 200%);
+  height: var(--bar); min-height: 58px; padding: 0 28px;
+  display: flex; align-items: center; justify-content: center; gap: 18px;
+  background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; border: 0;
+  font-family: var(--ui); white-space: nowrap;
+}
+.pat-c .next-live:hover { background: transparent; color: var(--white); }
+.pat-c .next-live:hover .next-live__cta { background: var(--white); color: var(--black); }
+.pat-c .next-live__label { font-family: var(--ui); font-size: 12px; }
+.pat-c .next-live__date b { font: 400 22px/1 var(--ui); letter-spacing: .06em; }
+.pat-c .next-live__date small { display: none; }
+.pat-c .next-live__venue { flex-direction: row; align-items: baseline; gap: 10px; font: 400 18px/1 var(--ja); }
+.pat-c .next-live__venue small { margin: 0; }
+.pat-c .next-live > span + span::before { content: '—'; margin-right: 18px; opacity: .4; font-family: var(--ui); }
+.pat-c .next-live > .next-live__cta::before { content: none; }
+.pat-c .next-live__cta { font-family: var(--ui); padding: 10px 18px; border-color: rgba(233, 229, 220, .5); transition: background-color .4s, color .4s; }
+@media (max-width: 700px) {
+  .pat-c { --bar: 12vh; }
+  .pat-c .next-live { gap: 10px; padding: 0 12px; display: flex; grid-template-areas: none; width: 100%; }
+  .pat-c .next-live__label { display: none; }
+  .pat-c .next-live > .next-live__date::before { content: none; }
+  .pat-c .next-live > span + span::before { margin-right: 10px; }
+  .pat-c .next-live__cta { padding: 8px 12px; text-align: center; }
+  .pat-c .next-live__date b { font-size: 20px; }
+  .pat-c .hero__title, .pat-c .hero.has-next .hero__title { width: calc(100% - var(--gutter) * 2); bottom: calc(var(--bar) + 4vh); }
+}
+
+/* ---------- 現在のシーン（左下） ---------- */
+.gc-scene { position: fixed; left: var(--gutter); bottom: 22px; z-index: 94; margin: 0; font: 400 11px/1 var(--ui); letter-spacing: .26em; text-transform: uppercase; color: #fff; mix-blend-mode: difference; opacity: 0; transition: opacity .6s; pointer-events: none; }
+.gc-scene.is-shown { opacity: .7; }
+@media (max-width: 700px) { .gc-scene { display: none; } }
+
+/* ---------- next live pill ---------- */
+.pat-c .next-pill { font-family: var(--ui); border-radius: 0; }
+.pat-c .next-pill b { font-family: var(--ui); font-size: 15px; }
+
+/* ---------- store links ---------- */
+.pat-c .store-links { justify-content: center; }
+.pat-c .store-links__k { font-family: var(--ui); font-style: italic; }
+.pat-c .store-links a { font-family: var(--ui); border-radius: 0; border-color: rgba(233, 229, 220, .3); }
+
+/* ---------- about：中央の大見出しとアートワーク ---------- */
+.pat-c .about__intro { text-align: center; }
+.pat-c .about__theme { font-family: var(--ja); letter-spacing: .3em; margin-right: -.3em; }
+.pat-c .about__grid { grid-template-columns: minmax(0, 1fr); justify-items: center; border-top: 0; gap: 60px; }
+.pat-c .about__text { text-align: center; }
+.pat-c .about__lead { font-size: clamp(22px, 2.4vw, 36px); line-height: 2; }
+.pat-c .about__body p { font-family: var(--ui); font-size: 14px; letter-spacing: .1em; }
+.pat-c .about__art { justify-self: center; max-width: 440px; }
+.pat-c .worldview__label { text-align: center; font-family: var(--ui); text-transform: uppercase; }
+.pat-c .worldview__label::after { display: none; }
+.pat-c .worldview__grid { grid-template-columns: minmax(0, 1fr); justify-items: center; }
+.pat-c .wv { max-width: 620px; }
+.pat-c .wv-label b { font-family: var(--ja); }
+.pat-c .wv-label--bare small, .pat-c .wv-label small { font-family: var(--ui); }
+.pat-c .wv-notes { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0 40px; width: 100%; max-width: 1100px; border-top: 0; }
+.pat-c .wv-notes li { grid-template-columns: 1fr; text-align: center; border-bottom: 0; padding: 26px 0; }
+.pat-c .wv-notes__no { padding: 0; }
+.pat-c .wv-notes h4 { justify-content: center; flex-direction: column; gap: 6px; align-items: center; }
+.pat-c .wv-notes h4 em { font-family: var(--ui); font-style: normal; text-transform: uppercase; letter-spacing: .3em; font-size: 10px; }
+.pat-c .about__genre { font-family: var(--ja); }
+.pat-c .about__facts { border-top: 0; text-align: center; }
+.pat-c .about__facts > div { padding: 26px 10px 0; }
+.pat-c .about__facts dt { font-family: var(--ui); }
+
+/* ---------- members：交互に並ぶ「出演者」 ---------- */
+.pat-c .members__grid { grid-template-columns: minmax(0, 1fr); gap: clamp(90px, 12vw, 180px); max-width: 1200px; margin: 0 auto; }
+.pat-c .member { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1fr); gap: clamp(30px, 6vw, 100px); align-items: center; }
+.pat-c .member:nth-child(n) { margin-top: 0; padding: 0; }
+.pat-c .member:nth-child(even) .member__photo-wrap { order: 2; }
+.pat-c .member__info { display: block; margin-top: 0; text-align: center; }
+.pat-c .member__no { display: block; padding: 0 0 22px; font-family: var(--ui); }
+.pat-c .member__no::before { content: 'Cast '; }
+.pat-c .member__reading { font-family: var(--ui); font-size: 12px; letter-spacing: .4em; }
+.pat-c .member__name { font: 400 clamp(36px, 4.6vw, 70px)/1.3 var(--ja); letter-spacing: .2em; margin-right: -.2em; }
+.pat-c .member__part { font: 400 clamp(14px, 1.2vw, 17px)/1.6 var(--en); font-style: normal; letter-spacing: .24em; text-transform: uppercase; margin-top: 14px; }
+.pat-c .member__tags { justify-content: center; }
+.pat-c .member__tags span { font-family: var(--ui); border-radius: 0; }
+@media (max-width: 900px) {
+  .pat-c .member { grid-template-columns: 1fr; gap: 30px; }
+  .pat-c .member:nth-child(even) .member__photo-wrap { order: 0; }
+  .pat-c .member:nth-child(n) { padding: 0; }
+}
+
+/* ---------- works：スクリーン ---------- */
+.pat-c .works__head { flex-direction: column; align-items: center; gap: 30px; }
+.pat-c .work-row__head { justify-content: center; gap: 18px; border-bottom: 0; }
+.pat-c .work-row__title { font-family: var(--en); letter-spacing: .16em; }
+.pat-c .work-row__count { font-family: var(--ui); }
+.pat-c .work-row__count::before { content: '('; }
+.pat-c .work-row__count::after { content: ')'; }
+.pat-c .work__media { box-shadow: 0 0 0 1px rgba(233, 229, 220, .1), 0 40px 80px -40px rgba(0, 0, 0, .9); }
+.pat-c .work__play { font-family: var(--ui); }
+.pat-c .work__meta { justify-content: center; }
+.pat-c .work__no { font-family: var(--ui); }
+.pat-c .work__title { font-family: var(--ja); }
+
+/* ---------- lyrics：エンドロール ---------- */
+.pat-c .lyrics__list { border-top: 0; max-width: 900px; margin: 0 auto; }
+.pat-c .lyric-row { display: flex; flex-direction: column; align-items: center; gap: 12px; border-bottom: 0; text-align: center; padding: clamp(26px, 3vw, 40px) 0; }
+.pat-c .lyric-row .no { font-family: var(--ui); }
+.pat-c .lyric-row .t { font-family: var(--ja); font-size: clamp(30px, 3.6vw, 54px); letter-spacing: .2em; }
+.pat-c .lyric-row .first { display: block; opacity: .55; transform: none; font-family: var(--ui); font-size: 13px; white-space: normal; }
+.pat-c .lyric-row .go { display: none; }
+@media (hover: hover) {
+  .pat-c .lyric-row:hover .t { transform: none; letter-spacing: .28em; }
+  .pat-c .lyric-row:hover .first { opacity: 1; }
+}
+.pat-c .lyric-modal__no, .pat-c .lyric-modal__close { font-family: var(--ui); }
+.pat-c .lyric-modal__title { font-family: var(--ja); }
+
+/* ---------- schedule：上映スケジュール ---------- */
+.pat-c .schedule__label { text-align: center; font-family: var(--ui); font-size: 12px; letter-spacing: .4em; }
+.pat-c .rows { max-width: 1100px; margin: 0 auto; }
+.pat-c .row__date .d { font-family: var(--ui); font-size: clamp(32px, 3.6vw, 52px); }
+.pat-c .row__date .y, .pat-c .row__side a, .pat-c .row__side span { font-family: var(--ui); }
+.pat-c .row__side a, .pat-c .row__side span { border-radius: 0; }
+.pat-c .row__title { font-family: var(--ja); }
+
+/* ---------- history：フィルモグラフィー ---------- */
+.pat-c .history__filter { justify-content: center; }
+.pat-c .history__filter button { font-family: var(--ui); border-radius: 0; }
+.pat-c .year { grid-template-columns: minmax(0, 1fr); justify-items: center; border-top: 0; text-align: center; }
+.pat-c .year__label { position: static; font-family: var(--en); font-size: clamp(44px, 5vw, 76px); letter-spacing: .2em; }
+.pat-c .year__list { width: 100%; max-width: 720px; }
+.pat-c .h-item { grid-template-columns: 1fr 110px 1fr; border-bottom: 0; padding: 12px 0; }
+.pat-c .h-item time { text-align: right; font-family: var(--ui); font-size: 15px; letter-spacing: .1em; }
+.pat-c .h-item .tag { text-align: center; font-family: var(--ui); }
+.pat-c .h-item .t { text-align: left; font-family: var(--ja); }
+@media (hover: hover) { .pat-c .h-item:hover { transform: none; opacity: .7; } }
+@media (max-width: 760px) {
+  .pat-c .h-item { grid-template-columns: 70px 1fr; text-align: left; }
+  .pat-c .h-item time { text-align: left; }
+  .pat-c .h-item .tag { text-align: left; }
+}
+
+/* ---------- contact：クレジット ---------- */
+.pat-c .contact { text-align: center; }
+.pat-c .contact__text { font-family: var(--ui); }
+.pat-c .contact__mail { justify-content: center; }
+.pat-c .contact__mail a { font-family: var(--en); letter-spacing: .04em; font-size: clamp(22px, 4vw, 64px); }
+.pat-c .contact__copy { font-family: var(--ui); border-radius: 0; }
+.pat-c .contact__sns-label { font-family: var(--ui); font-size: 12px; letter-spacing: .4em; }
+.pat-c .sns-rows { max-width: 900px; margin: 0 auto; text-align: left; }
+.pat-c .sns-rows .n { font-family: var(--en); letter-spacing: .08em; font-size: clamp(24px, 3vw, 46px); }
+.pat-c .sns-rows .h { font-family: var(--ui); }
+
+/* ---------- footer ---------- */
+.pat-c .footer { text-align: center; }
+.pat-c .footer__big img { width: min(60vw, 900px); margin: 0 auto; }
+.pat-c .footer__row { font-family: var(--ui); }
+.gc-fin { font: italic 400 16px/1 var(--ui); letter-spacing: .2em; text-transform: none; opacity: .7; }

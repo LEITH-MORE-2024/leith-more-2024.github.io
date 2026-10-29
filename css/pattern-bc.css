@@ -1,0 +1,168 @@
+/* ============================================================
+   PATTERN B×C — 起動演出は黒地に白いマークとロゴ、本体は C（Cinema）
+   css/style.css → css/pattern-c.css の上に重ねて読み込む
+   ============================================================ */
+
+/* ============================================================
+   起動演出（静かに）
+   0.2s〜 マークと LEITH MORE がぼやけた状態からゆっくり浮かび上がる（マークはごく遅く回り続ける）
+   3.2s〜 マークがゆっくり迫りながら透けていき、文字は静かに消える
+   4.6s〜 背景が溶けるように消えて、トップ画面へ
+   ============================================================ */
+.pat-bc .loader { --cy: 42%; background: transparent; opacity: 1; transition: none; }
+.pat-bc .loader.is-done { opacity: 1; }
+
+/* 黒い幕：マークが十分に透けてから溶けるように消える */
+.bc-paper { position: absolute; inset: 0; background: var(--black); transition: opacity 1.1s cubic-bezier(.4, 0, .2, 1) 1.4s; }
+.pat-bc .loader.is-done .bc-paper { opacity: 0; }
+
+/* 舞台：ゆっくり迫ってくる */
+.bc-stage { position: absolute; inset: 0; transform-origin: 50% var(--cy); transition: transform 2.6s cubic-bezier(.45, 0, .25, 1); }
+.pat-bc .loader.is-done .bc-stage { transform: scale(3.4); }
+
+/* 細胞のマーク（白） */
+.bc-mark { position: absolute; left: 50%; top: var(--cy); width: min(56vmin, 520px); aspect-ratio: 1; translate: -50% -50%; pointer-events: none; transition: opacity 2.2s cubic-bezier(.4, 0, .6, 1), filter 2.2s ease; }
+.bc-mark img { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; animation: bcMarkIn 2.4s cubic-bezier(.25, .1, .25, 1) .2s forwards, bcDrift 90s linear infinite; }
+@keyframes bcMarkIn { from { opacity: 0; filter: blur(16px); scale: 1.06; } to { opacity: .92; filter: blur(0); scale: 1; } }
+@keyframes bcDrift { to { rotate: 360deg; } }
+.pat-bc .loader.is-done .bc-mark { opacity: .06; filter: blur(2px); }
+
+/* LEITH MORE（白）：少し遅れて、ぼやけた状態から浮かび上がる */
+.bc-logo { position: absolute; left: 50%; top: calc(var(--cy) + min(28vmin, 260px) + 4vmin); translate: -50% 0; width: min(560px, 80vw); margin: 0; transition: opacity 1s ease, filter 1s ease; }
+.bc-logo img { display: block; width: 100%; height: auto; }
+.bc-logo__main { opacity: 0; animation: bcLogoIn 2.4s cubic-bezier(.25, .1, .25, 1) .9s forwards; }
+@keyframes bcLogoIn { from { opacity: 0; filter: blur(12px); } to { opacity: 1; filter: blur(0); } }
+.pat-bc .loader.is-done .bc-logo { opacity: 0; filter: blur(8px); }
+
+/* ---------- 下スクロールの演出（写真が円に閉じる）は使わない ---------- */
+.pat-bc .hero { height: 100vh; height: 100svh; }
+.pat-bc .hero__stage { position: relative; }
+.pat-bc .hero__cell, .pat-bc .hero__ring, .pat-bc .hero__phrase { display: none; }
+.pat-bc .hero .hero__media { clip-path: none; filter: none; }
+.pat-bc .hero__shade { opacity: 1; }
+.pat-bc .hero__title { opacity: 1; translate: none; }
+.pat-bc .next-live { translate: -50% 0; }
+body.pat-bc.is-ready .gc-bar { height: var(--bar); }
+
+/* ---------- About：細胞のマークを本文の背景に ---------- */
+.pat-bc .about__intro { position: relative; overflow: hidden; }
+.pat-bc .about__intro > :not(.bc-about-mark) { position: relative; z-index: 1; }
+.bc-about-mark {
+  position: absolute; left: 50%; top: 58%; width: min(980px, 110vw); aspect-ratio: 1; translate: -50% -50%;
+  opacity: .14; pointer-events: none; animation: bcAboutSpin 160s linear infinite;
+}
+@keyframes bcAboutSpin { to { rotate: 360deg; } }
+.pat-bc .about__art { display: none; }
+
+/* ---------- 世界観の説明：図と同じ配置（中央に起源、左右に死と愛、下に社会と剥き出しの人間） ---------- */
+.pat-bc .wv-notes { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px clamp(40px, 8vw, 140px); max-width: 900px; }
+.pat-bc .wv-notes li:first-child, .pat-bc .wv-notes li:last-child { grid-column: 1 / -1; max-width: 640px; justify-self: center; }
+.pat-bc .wv-notes li { padding: 30px 0; align-content: start; }
+.pat-bc .wv-notes p br { display: none; }
+@media (max-width: 700px) {
+  .pat-bc .wv-notes { grid-template-columns: 1fr; }
+}
+
+/* ---------- メールアドレス：小文字で表示 ---------- */
+.pat-bc .contact__mail a { font-family: var(--ja); letter-spacing: .04em; font-size: clamp(22px, 4.4vw, 68px); }
+
+/* ---------- History：左に年、右に日付と出来事（A案の並び） ---------- */
+.pat-bc .year { grid-template-columns: minmax(140px, 1fr) minmax(0, 2.4fr); justify-items: stretch; text-align: left; border-top: 1px solid var(--line); }
+.pat-bc .year__label { position: sticky; top: calc(var(--header-h) + 20px); align-self: start; letter-spacing: .08em; font-size: clamp(48px, 6.4vw, 104px); }
+.pat-bc .year__list { max-width: none; }
+.pat-bc .h-item { grid-template-columns: 90px 120px 1fr; border-bottom: 1px solid var(--line); padding: 18px 0; }
+.pat-bc .h-item time, .pat-bc .h-item .tag, .pat-bc .h-item .t { text-align: left; }
+@media (max-width: 760px) {
+  .pat-bc .year { grid-template-columns: 1fr; gap: 10px; }
+  .pat-bc .year__label { position: static; }
+  .pat-bc .h-item { grid-template-columns: 64px 1fr; }
+}
+
+/* ---------- 配信サービス：ロゴのボタン ---------- */
+.store-links .store-ico { display: inline-grid; place-items: center; width: 46px; height: 46px; padding: 0; border: 1px solid rgba(233, 229, 220, .28); border-radius: 50%; transition: background-color .4s, color .4s, border-color .4s; }
+.store-links .store-ico svg { width: 20px; height: 20px; display: block; }
+.store-links .store-ico:hover { background: var(--white); color: var(--black); border-color: var(--white); }
+.pat-bc .sns-rows .h { text-transform: none; }
+
+/* ---------- 数字：年（2024）と同じ書体に ---------- */
+.pat-bc .h-item time,
+.pat-bc .row__date .d, .pat-bc .row__date .y,
+.pat-bc .next-live__date b, .pat-bc .next-pill b,
+.pat-bc .work__no, .pat-bc .section-head__no, .pat-bc .member__no,
+.pat-bc .wv-notes__no, .pat-bc .lyric-modal__no, .pat-bc .menu__list small {
+  font-family: var(--en); font-style: normal; letter-spacing: .08em;
+}
+.pat-bc .h-item time { font-size: 18px; }
+
+/* ---------- Works：見出しの本数表示はなし ---------- */
+.pat-bc .work-row__count { display: none; }
+
+/* ---------- Song：サムネイルの横に歌詞ボタン（タップで歌詞のページを開く） ---------- */
+.song-list { display: grid; gap: 0; border-top: 1px solid var(--line); max-width: 1200px; margin: 0 auto; }
+.song { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: clamp(24px, 4vw, 64px); align-items: start; padding: clamp(28px, 3.4vw, 48px) 0; border-bottom: 1px solid var(--line); }
+.song .work__media { margin: 0; }
+.song__body { display: flex; flex-direction: column; align-items: flex-start; gap: 18px; min-width: 0; }
+.song__head { display: flex; align-items: baseline; gap: 18px; }
+.song__head .work__no { font-size: 14px; opacity: .55; }
+.song__title { font: 400 clamp(26px, 2.8vw, 42px)/1.3 var(--ja); letter-spacing: .16em; }
+.song__links { gap: 8px; }
+.song__links .store-links__k { display: none; }
+.song__toggle { display: inline-flex; align-items: center; gap: 14px; margin-top: 6px; padding: 12px 22px; border: 1px solid rgba(233, 229, 220, .35); font: 400 11px/1 var(--ui); letter-spacing: .3em; text-transform: uppercase; transition: background-color .4s, color .4s; }
+.song__toggle i { width: 26px; height: 1px; background: currentColor; transition: width .5s var(--ease); }
+.song__toggle:hover { background: var(--white); color: var(--black); }
+.song__toggle:hover i { width: 40px; }
+@media (max-width: 760px) {
+  .song { grid-template-columns: 1fr; gap: 18px; }
+}
+
+/* ---------- フッター・メニュー下部：配信／SNS をロゴで ---------- */
+.pat-bc .footer__sns, .pat-bc .menu__sns { align-items: center; gap: 26px; }
+.foot-ico { display: block; line-height: 0; }
+.foot-ico svg { width: 22px; height: 22px; display: block; }
+.pat-bc .footer a.foot-ico:hover { opacity: .5; }
+
+/* ---------- About：紹介文（3段落）。世界観の図とジャンルの一文は出さない ---------- */
+.pat-bc .about__copy { max-width: 760px; margin: 0 auto; display: grid; gap: 2em; }
+.pat-bc .about__copy p { font-family: var(--ja); font-size: clamp(15px, 1.45vw, 19px); line-height: 2.4; letter-spacing: .12em; text-align: center; color: var(--fg); }
+.pat-bc .about__copy p + p { margin-top: 0; }
+.pat-bc #wvDiagram, .pat-bc .about__genre { display: none; }
+/* 世界観の説明文と「帰る場所」の一節も出さない */
+.pat-bc .worldview, .pat-bc .about__statement { display: none; }
+.pat-bc .worldview__grid { gap: 0; }
+@media (max-width: 700px) {
+  .pat-bc .about__copy p { text-align: left; }
+  .pat-bc .about__copy p br { display: none; }
+}
+
+/* About：大きな「性・死・愛」の見出しは出さない */
+.pat-bc .about__theme { display: none; }
+
+/* About：見出しと文章のあいだを詰める */
+.pat-bc #about .section-head { margin-bottom: clamp(28px, 3.5vw, 48px); }
+.pat-bc #about .section-head::after { height: 40px; margin-top: 22px; }
+.pat-bc .about__grid { padding-top: 0; }
+.pat-bc .about__body { margin-top: 0; }
+
+/* About：コンセプト文を大きめに、改行位置を保って中央に */
+.pat-bc .about__copy p { font-size: clamp(17px, 2.1vw, 30px); line-height: 2.3; letter-spacing: .14em; margin-right: -.14em; }
+@media (max-width: 700px) {
+  .pat-bc .about__copy p { text-align: center; letter-spacing: .08em; margin-right: -.08em; }
+  .pat-bc .about__copy p br { display: inline; }
+}
+
+/* 見出し上の「Scene 03」と左下の場面表示は出さない */
+.pat-bc .section-head__no, .pat-bc .gc-scene { display: none; }
+
+/* Schedule：Tickets ボタンを大きく。白地に黒文字、触れると反転 */
+.pat-bc .row__side a { display: inline-flex; align-items: center; gap: .9em; font: 500 clamp(13px, 1.15vw, 17px)/1 var(--en); letter-spacing: .32em; padding: 1.35em 2.4em 1.35em 2.72em; background: var(--fg); color: var(--bg); border: 1px solid var(--fg); transition: background .5s var(--ease), color .5s var(--ease); }
+.pat-bc .row__side a svg { width: 1em; height: 1em; }
+.pat-bc .row__side a:hover, .pat-bc .row__side a:focus-visible { background: transparent; color: var(--fg); }
+@media (max-width: 700px) { .pat-bc .row__side a { font-size: 12px; padding: 1.2em 1.8em 1.2em 2.1em; } }
+
+/* About：詩のような8行（3連）。行ごとの改行を保ち、連の間をあける */
+.pat-bc .about__copy { gap: 2.6em; }
+.pat-bc .about__copy p { font-size: clamp(15px, 1.55vw, 21px); line-height: 2.4; letter-spacing: .14em; margin-right: -.14em; }
+@media (max-width: 700px) {
+  .pat-bc .about__copy { gap: 2em; }
+  .pat-bc .about__copy p { font-size: 13px; line-height: 2.3; letter-spacing: .04em; margin-right: -.04em; }
+}
