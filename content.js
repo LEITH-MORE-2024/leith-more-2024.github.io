@@ -58,7 +58,7 @@ window.SITE = {
     facts: [
       { label: 'Formed',     value: '2024.02.11' },
       { label: 'Based',      value: '東京・新宿' },
-      { label: 'Genre',      value: 'Rock / Ballad Rock / Art Rock' },
+      { label: 'Genre',      value: 'Alternative Rock' },
       { label: 'Members',    value: '高林夢歩 / 今村恵也 / 志庵' },
     ],
   },
