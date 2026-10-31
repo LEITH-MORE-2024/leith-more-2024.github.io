@@ -166,3 +166,13 @@ body.pat-bc.is-ready .gc-bar { height: var(--bar); }
   .pat-bc .about__copy { gap: 2em; }
   .pat-bc .about__copy p { font-size: 13px; line-height: 2.3; letter-spacing: .04em; margin-right: -.04em; }
 }
+
+/* ---------- スマホ：トップ下部の次回ライブが画面からはみ出さないように ---------- */
+@media (max-width: 700px) {
+  .pat-bc .next-live { box-sizing: border-box; white-space: normal; justify-content: space-between; gap: 12px; padding: 0 var(--gutter); }
+  .pat-bc .next-live > span + span::before { margin-right: 10px; }
+  .pat-bc .next-live__date { flex: none; }
+  .pat-bc .next-live__date b { font-size: 18px; }
+  .pat-bc .next-live__venue { flex: 1 1 auto; min-width: 0; font-size: 14px; letter-spacing: .06em; line-height: 1.35; }
+  .pat-bc .next-live__cta { flex: none; font-size: 10px; letter-spacing: .2em; padding: 9px 12px; }
+}
