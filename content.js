@@ -91,10 +91,11 @@ window.SITE = {
   //  reading: 名前の上に出る読み（ローマ字）
   //  photo: 縦長 4:5（1600×2000 推奨）
   //  bio:   経歴。空欄なら表示されない。改行したい場合は ` ` で囲む
+  //  role:  肩書き（タグ）。複数なら ['…', '…']。age: 年齢（空欄 '' なら表示しない）
   members: [
-    { name: '高林夢歩', reading: 'Mua Takabayashi', part: 'Guitar / Vocal', role: '作詞・作曲', age: 24, photo: 'images/member-takabayashi.jpg?v=58adb414', bio: '' },
-    { name: '今村恵也', reading: 'Keiya Imamura', part: 'Keyboard / Synthesizer', role: '', age: 23, photo: 'images/member-imamura.jpg?v=a54b00ef', bio: '' },
-    { name: '志庵',     reading: 'Cyan', part: 'Drums', role: 'リーダー', age: 24, photo: 'images/member-cyan.jpg?v=024b8419', bio: '' },
+    { name: '高林夢歩', reading: 'Mua Takabayashi', part: 'Guitar / Vocal', role: '作詞・作曲', age: '', photo: 'images/member-takabayashi.jpg?v=58adb414', bio: '' },
+    { name: '今村恵也', reading: 'Keiya Imamura', part: 'Keyboard / Synthesizer', role: '作詞・作曲', age: '', photo: 'images/member-imamura.jpg?v=a54b00ef', bio: '' },
+    { name: '志庵',     reading: 'Cyan', part: 'Drums', role: ['リーダー', 'マネジメントリーダー'], age: '', photo: 'images/member-cyan.jpg?v=024b8419', bio: '' },
   ],
 
   /* ---------- 作品（YouTube） ----------

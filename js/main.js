@@ -185,7 +185,8 @@
 
   // members
   $('#membersGrid').innerHTML = S.members.map((m, i) => {
-    const tags = [m.role, m.age ? `${m.age}歳` : ''].filter(Boolean).map((t) => `<span>${esc(t)}</span>`).join('');
+    // role は複数なら ['…', '…']
+    const tags = [...[].concat(m.role || []), m.age ? `${m.age}歳` : ''].filter(Boolean).map((t) => `<span>${esc(t)}</span>`).join('');
     return `
     <article class="member">
       <div class="member__photo-wrap" data-reveal="clip">${photo(m.photo, 'Member Photo', '縦長 4:5').replace('class="ph"', 'class="ph" data-parallax="-0.06"')}</div>
