@@ -8,7 +8,7 @@
    ・文字は ' ' （シングルクォート）または ` ` （バッククォート）で囲む
    ・各項目の最後のカンマ（ , ）を消さない
    ・改行を含む長い文章は ` ` で囲めば、そのまま改行が反映される
-   ・写真は images フォルダに入れて、ファイル名を書く（例: 'images/hero.jpg'）
+   ・写真は images フォルダに入れて、ファイル名を書く（例: 'images/hero.jpg?v=110f5c9c'）
      空欄（ '' ）のままだと「写真枠」が表示される
    ============================================================ */
 
@@ -20,7 +20,7 @@ window.SITE = {
 
   /* ---------- トップ（最初の画面） ---------- */
   hero: {
-    photo: 'images/hero.jpg',       // バンド全体のアーティスト写真（横長 1920×1080 以上推奨）
+    photo: 'images/hero.jpg?v=110f5c9c',       // バンド全体のアーティスト写真（横長 1920×1080 以上推奨）
     phrase: '死の向こう、初まりのその先。',   // スクロールで写真が閉じていく途中に浮かぶ言葉（不要なら '' ）
   },
 
@@ -45,7 +45,7 @@ window.SITE = {
 抑えきれないものを衝動に
 人間の奥に潜むものを、音楽に変えていく`,
     ],
-    artwork: 'images/artwork.jpg',   // バンド紹介の横に置くアートワーク（不要なら '' ）
+    artwork: 'images/artwork.jpg?v=23092215',   // バンド紹介の横に置くアートワーク（不要なら '' ）
     // 世界観の図のあとに置く言葉（世界観.xlsx より）。不要なら ''
     statement: `絶対に帰れる場所が欲しい。
 その罪ももがいた末、その罪もそこに帰るため、ただ抱きしめて欲しい。
@@ -92,9 +92,9 @@ window.SITE = {
   //  photo: 縦長 4:5（1600×2000 推奨）
   //  bio:   経歴。空欄なら表示されない。改行したい場合は ` ` で囲む
   members: [
-    { name: '高林夢歩', reading: 'Mua Takabayashi', part: 'Guitar / Vocal', role: '作詞・作曲', age: 24, photo: 'images/member-takabayashi.jpg', bio: '' },
-    { name: '今村恵也', reading: 'Keiya Imamura', part: 'Keyboard / Synthesizer', role: '', age: 23, photo: 'images/member-imamura.jpg', bio: '' },
-    { name: '志庵',     reading: 'Cyan', part: 'Drums', role: 'リーダー', age: 24, photo: 'images/member-cyan.jpg', bio: '' },
+    { name: '高林夢歩', reading: 'Mua Takabayashi', part: 'Guitar / Vocal', role: '作詞・作曲', age: 24, photo: 'images/member-takabayashi.jpg?v=58adb414', bio: '' },
+    { name: '今村恵也', reading: 'Keiya Imamura', part: 'Keyboard / Synthesizer', role: '', age: 23, photo: 'images/member-imamura.jpg?v=a54b00ef', bio: '' },
+    { name: '志庵',     reading: 'Cyan', part: 'Drums', role: 'リーダー', age: 24, photo: 'images/member-cyan.jpg?v=024b8419', bio: '' },
   ],
 
   /* ---------- 作品（YouTube） ----------
