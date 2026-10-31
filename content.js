@@ -95,7 +95,7 @@ window.SITE = {
   members: [
     { name: '高林夢歩', reading: 'Mua Takabayashi', part: 'Guitar / Vocal', role: '作詞・作曲', age: '', photo: 'images/member-takabayashi.jpg?v=58adb414', bio: '' },
     { name: '今村恵也', reading: 'Keiya Imamura', part: 'Keyboard / Synthesizer', role: '作詞・作曲', age: '', photo: 'images/member-imamura.jpg?v=a54b00ef', bio: '' },
-    { name: '志庵',     reading: 'Cyan', part: 'Drums', role: ['リーダー', 'マネジメントリーダー'], age: '', photo: 'images/member-cyan.jpg?v=024b8419', bio: '' },
+    { name: '志庵',     reading: 'Cyan', part: 'Drums', role: 'マネジメントリーダー', age: '', photo: 'images/member-cyan.jpg?v=024b8419', bio: '' },
   ],
 
   /* ---------- 作品（YouTube） ----------
