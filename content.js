@@ -146,7 +146,7 @@ window.SITE = {
     // ライブ
     { type: 'LIVE',    date: '2024-12-29', title: '新宿Marble' },
     { type: 'LIVE',    date: '2025-02-03', title: '下北沢CLUB251' },
-    { type: 'LIVE',    date: '2025-03-14', title: '下北沢Reg' },
+    { type: 'LIVE',    date: '2025-03-13', title: '下北沢Reg' },
     { type: 'LIVE',    date: '2025-04-02', title: '下北沢LIVE HOLIC' },
     { type: 'LIVE',    date: '2025-06-21', title: '新宿LIVE FREAK' },
     { type: 'LIVE',    date: '2025-07-17', title: '下北沢Reg' },
