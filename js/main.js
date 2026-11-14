@@ -404,17 +404,22 @@
     lockScroll(true);
     const start = performance.now();
     const DURATION = Number(loader.dataset.duration) || 2900;  // 演出の長さ（ページごとに data-duration で指定可）
+    let finished = false;
+    const finish = () => {
+      if (finished) return;
+      finished = true;
+      loader.classList.add('is-done');
+      setTimeout(ready, Number(loader.dataset.ready) || 350);
+      setTimeout(() => { loader.classList.add('is-gone'); lockScroll(false); }, Number(loader.dataset.exit) || 1250);
+      try { sessionStorage.setItem('lm-loaded', '1'); } catch (e) { /* ignore */ }
+    };
     const tick = (now) => {
-      const p = Math.min((now - start) / DURATION, 1);
-      if (p < 1) requestAnimationFrame(tick);
-      else {
-        loader.classList.add('is-done');
-        setTimeout(ready, Number(loader.dataset.ready) || 350);
-        setTimeout(() => { loader.classList.add('is-gone'); lockScroll(false); }, Number(loader.dataset.exit) || 1250);
-        try { sessionStorage.setItem('lm-loaded', '1'); } catch (e) { /* ignore */ }
-      }
+      if ((now - start) / DURATION < 1) requestAnimationFrame(tick);
+      else finish();
     };
     requestAnimationFrame(tick);
+    // 画面の描画が止まる環境（裏で開いたタブ・アプリ内ブラウザなど）でも、ロゴ演出で止まらないように
+    setTimeout(finish, DURATION + 300);
   }
 
   /* ============================================================
