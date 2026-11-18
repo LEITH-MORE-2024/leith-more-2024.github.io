@@ -159,7 +159,7 @@ window.SITE = {
     { type: 'LIVE',    date: '2026-10-18', title: '代々木Labo', note: '', ticket: '' },
     { type: 'LIVE',    date: '2026-11-13', title: '高円寺Club ROOTS!', note: '', ticket: 'https://forms.gle/7vhK3dLZFuMvsw5t7' },
     { type: 'LIVE',    date: '2026-11-28', title: '代々木Labo', note: '', ticket: 'https://forms.gle/Vbrg5XVN55QDw8Pc7' },
-    { type: 'LIVE',    date: '2026-12-04', title: '大久保HOTSHOT', note: '', ticket: '' },
+    { type: 'LIVE',    date: '2026-12-04', title: '大久保HOTSHOT', note: '', ticket: 'https://docs.google.com/forms/d/e/1FAIpQLScU1dsGoKqNBShx1R4z6tfH7nCCR7Jfb8DlYsHXSf9sVkdt-w/viewform' },
     { type: 'LIVE',    date: '2027-01-10', title: '代々木Labo', note: '', ticket: 'https://forms.gle/XWMeLFsjFNyP8giN7' },
     { type: 'LIVE',    date: '2027-01-24', title: '代々木Labo', note: '', ticket: 'https://forms.gle/6HT4sVdkApjhBFQs5' },
     { type: 'LIVE',    date: '2027-01-31', title: '新宿Nine Spices', note: 'EMERGENZA FESTIVAL 予選', ticket: 'https://forms.gle/YGwa12mHPPPar4Mm6' },
